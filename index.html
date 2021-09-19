@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<title>Welcome</title>
+<style>
+.chip{
+  padding:1px 30px 20px 30px;
+}
+#select{
+  left : 10px;
+}
+#sub{
+  background-color: green;
+}
+.bg-img {
+  border: 3px solid;
+  padding: 30px 30px 30px 187px;
+  border-radius: 3%;
+  min-height: 380px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  box-shadow: 10px 10px 10px 10px rgba(0.2,0.2,0,0.2);
+}
+
+input[type=text]{
+  width: 71%;
+  padding: 15px;
+  margin: px 0 22px 0;
+}
+input[type=submit]{
+  width: 71%;
+  color: white;
+}
+.container {
+  margin: 20px;
+  max-width: 300px;
+  padding: 16px;
+  background-color: white;
+}
+.btn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.btn:hover {
+  opacity: 1;
+}
+
+.flip-card {
+  background-color: transparent;
+  width: 400px;
+  height: 250px;
+  perspective: 1000px;
+  filter: drop-shadow(5px 5px 5px #222);
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 400px;
+  height: 250px;
+  border-radius : 3%;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 400px;
+  height: 200px;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.flip-card-front {
+  background-image: url("assets/images/7.jpeg");
+  width:400px;
+  height:250px;
+  border-radius : 3%;
+}
+
+.flip-card-back {
+  background-image: url("assets/images/6.jpeg");
+  width:400px;
+  height:250px;
+  border-radius : 3%;
+  transform: rotateY(180deg);
+}
+</style>
+<script>
+  $(document).ready(function() {
+      $('#cardNo').on("keyup", function() {
+          var cardNum = $("#cardNo").val();
+          $('#card_no').text(cardNum);
+          if (cardNum.indexOf("50") === 0 || cardNum.indexOf("60") === 0 || cardNum.indexOf("65") === 0) {
+            var g = "508500-508999|606985-607984|608001-608500|652150-653149";
+            var i = g.split("|");
+            for (var d = 0; d < i.length; d++) {
+              var c = parseInt(i[d].split("-")[0], 10);
+              var f = parseInt(i[d].split("-")[1], 10);
+              if ((cardNum.substr(0, 6) >= c && cardNum.substr(0, 6) <= f) && cardNum.length >= 6) {
+                  $("#card_type").attr("src","assets/images/visa.png");
+               }
+             }
+          }
+      });
+      $('#cardName').on("keyup", function() {
+          var i = $("#cardName").val().toUpperCase();
+          $('#card_name').text(i);
+      });
+      $('#mon').change(function() {
+          var i = $(this).val();
+          if(i <= 9 && i != "00")
+          $('#expire_m').text("0"+i);
+          else
+          $('#expire_m').text(i);
+      });
+      $('#year').change(function() {
+          var i = $(this).val();
+          $('#expire_y').text(i);
+      });
+      $('#cvv').on("keyup",function() {
+          var i = $(this).val();
+          $('#CVV').text(i);
+      });
+  });
+</script>
+</head>
+<body>
+<br><br>
+<div class="bg-img" style="width:800px; margin:0 auto">
+  <div class="flip-card" id="flipp">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <br>
+        <div class="chip">
+          <img src="assets/images/chip.png" width="60px">
+          <img src="assets/images/discover.png" id="card_type"width="110px" height="40px" align="right">
+        </div>
+        <br>
+        <div class="chip">
+          <spam id="card_no" class="form-control" style="width:100%; font-weight: bold;">#### #### #### #### </spam>
+        </div>
+        <div class="inline" style="color:white">
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label>Card Holder<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <label >Expires<label>
+        </div>
+        <div>
+          <label id="card_name" style="color:white; white-space: pre; width: 7%; padding:0px 0px 0px 30px;"></label>
+          <label id="expire_m" style="color:white; position:fixed; display: inline-block; vertical-align: top; padding:0px 0px 20px 287px;">mm</label>
+          <label style="color:white; position:fixed; padding:0px 0px 20px 314px;">/</label>
+          <label id="expire_y" style="color:white; position:fixed; display: inline-block; vertical-align: top; padding:0px 0px 20px 320px;">yyyy</label>
+          </div>
+        </div>
+      <div class="flip-card-back">
+        <br>
+        <div style="width:100%; height:15%; background-color: black">
+        </div>
+        <br><br>
+        <div style="padding:0px 10px 0px 360px; color: white">
+          <label>CVV</label>
+        </div>
+        <div style="padding:0px 10px 0px 10px;">
+          <spam id="CVV" class="form-control" style="width:100%; text-align: right; font-weight: bold;">
+          </div>
+          <br>
+        <div style="padding:0px 10px 0px 10px;">
+          <img src="assets/images/visa.png" width="90px" height="45px" align="right">
+          </div>
+      </div>
+  </div>
+    </div>
+  <br>
+  <form>
+      <div class="form-group">
+        <label for="usr">Card Number</label>
+        <input type="text" class="form-control" id="cardNo">
+      </div>
+      <div class="form-group">
+        <label for="pwd">Card Name</label>
+        <input type="text" class="form-control" id="cardName">
+      </div>
+      <div class="inline">
+        <label for="sel1">Expiration Date</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <label for="sel1">CVV</label>
+      </div>
+        <div class="form-inline">
+          <div class="form-group" style="width : 15%">
+            <select class="form-control" id="mon">
+                <option selected>mm</option>
+                <option value="1">01</option>
+                <option value="2">02</option>
+                <option value="3">03</option>
+                <option value="4">04</option>
+                <option value="5">05</option>
+                <option value="6">06</option>
+                <option value="7">07</option>
+                <option value="8">08</option>
+                <option value="9">09</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+            </select>
+          </div>
+        <div class="form-group" style="width : 15%">
+            <select class="form-control" id="year">
+                <option selected>yyyy</option>
+                <option value="2027">2027</option>
+                <option value="2026">2026</option>
+                <option value="2025">2025</option>
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+              </select>
+        </div>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <div class="form-group">
+            <input type="text" class="form-control" id="cvv" style="width: 35%;">
+            <script>
+              //$(document).ready(function() {
+              //$('#cvv').click(function() {
+                //$('#flipp').toggleClass("flip-card-back");
+                //document.getElementById("flipp").style.transform = "rotateY(180deg)";
+                //$('.user-text').css('transform', 'scale(' + ui.value + ')');
+              //});
+              //});
+            </script>
+          </div>
+      </div><br>
+      <input type="submit" class="form-control" id="sub" value="Submit">
+    </form>
+</div>
+
+</body>
+</html>
